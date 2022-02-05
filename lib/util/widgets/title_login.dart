@@ -7,15 +7,25 @@ class TittleLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyle(
-        color: MyColors.primaryColor,
-        fontSize: 35,
+    return Stack(children: [
+      Text(
+        this.text,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 40,
+          foreground: Paint()..color = MyColors.primaryColor,
+        ),
       ),
-      maxLines: 2,
-      semanticsLabel: "Tittle",
-      textAlign: TextAlign.center,
-    );
+      Text(
+        this.text,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontSize: 40,
+            foreground: Paint()
+              ..strokeWidth = 1
+              ..color = MyColors.textIcons
+              ..style = PaintingStyle.stroke),
+      ),
+    ]);
   }
 }

@@ -50,10 +50,10 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Welcome to My Team App`
+  /// `Welcome to \n My Team App`
   String get welcomeMyTeamApp {
     return Intl.message(
-      'Welcome to My Team App',
+      'Welcome to \n My Team App',
       name: 'welcomeMyTeamApp',
       desc: '',
       args: [],
@@ -65,6 +65,66 @@ class S {
     return Intl.message(
       'Manage your team',
       name: 'manageYourTeam',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name`
+  String get name {
+    return Intl.message(
+      'Name',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get password {
+    return Intl.message(
+      'Password',
+      name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create account`
+  String get creatteAccount {
+    return Intl.message(
+      'Create account',
+      name: 'creatteAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Olvidé mi contraseña`
+  String get forgotMyPassword {
+    return Intl.message(
+      'Olvidé mi contraseña',
+      name: 'forgotMyPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ingresar`
+  String get login {
+    return Intl.message(
+      'Ingresar',
+      name: 'login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Username`
+  String get userName {
+    return Intl.message(
+      'Username',
+      name: 'userName',
       desc: '',
       args: [],
     );

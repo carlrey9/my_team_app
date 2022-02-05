@@ -1,4 +1,10 @@
 {
-    "welcomeMyTeamApp": "Welcome to My Team App",
-    "manageYourTeam": "Manage your team"
+    "welcomeMyTeamApp": "Welcome to \n My Team App",
+    "manageYourTeam": "Manage your team",
+    "name": "Name",
+    "password": "Password",
+    "creatteAccount": "Create account",
+    "forgotMyPassword": "Olvidé mi contraseña",
+    "login": "Ingresar",
+    "userName": "Username"
 }
