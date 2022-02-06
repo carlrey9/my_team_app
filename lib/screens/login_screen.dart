@@ -1,11 +1,13 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:my_team_app/generated/l10n.dart';
+import 'package:my_team_app/services/providers/pro_login.dart';
 import 'package:my_team_app/util/my_colors.dart';
 import 'package:my_team_app/util/widgets/square.dart';
 import 'package:my_team_app/util/widgets/sub_tittle_login.dart';
 
 import 'package:my_team_app/util/widgets/title_login.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -22,20 +24,20 @@ class LoginScreen extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Tittle(),
-                  Subtittle(),
-                  SizedBox(
-                    height: _height / 5,
-                  ),
-                  FieldEmail(),
-                  FieldPassword(),
-                  BtnForgotMyPassword(),
-                  BtnLogin(),
-                  BtnCreateAccount(),
-                ],
+              child: Form(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Tittle(),
+                    Subtittle(),
+                    SizedBox(height: _height / 5),
+                    FieldEmail(),
+                    FieldPassword(),
+                    BtnForgotMyPassword(),
+                    BtnLogin(),
+                    BtnCreateAccount(),
+                  ],
+                ),
               ),
             ),
           ),
@@ -77,6 +79,7 @@ class FieldEmail extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
         decoration: InputDecoration(
+          icon: Icon(Icons.person),
           fillColor: Colors.white,
           border: new OutlineInputBorder(
             borderRadius: new BorderRadius.circular(12),
@@ -94,10 +97,15 @@ class FieldPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final proLogin = Provider.of<ProLogin>(context);
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
+        obscureText: true,
         decoration: InputDecoration(
+          prefixIcon: Icon(Icons.password),
+          suffixIcon: Icon(Icons.remove_red_eye),
           fillColor: Colors.white,
           border: new OutlineInputBorder(
             borderRadius: new BorderRadius.circular(12),

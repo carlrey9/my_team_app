@@ -4,7 +4,7 @@
     "name": "Nombre",
     "password": "Contraseña",
     "creatteAccount": "Crear cuenta",
-    "forgotMyPassword": "Forgot my password",
-    "login": "Login",
+    "forgotMyPassword": "Olvidé mi contraseña",
+    "login": "Ingresar",
     "userName": "Usuario"
 }

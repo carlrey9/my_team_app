@@ -100,20 +100,20 @@ class S {
     );
   }
 
-  /// `Olvidé mi contraseña`
+  /// `Forgot my password`
   String get forgotMyPassword {
     return Intl.message(
-      'Olvidé mi contraseña',
+      'Forgot my password',
       name: 'forgotMyPassword',
       desc: '',
       args: [],
     );
   }
 
-  /// `Ingresar`
+  /// `Login`
   String get login {
     return Intl.message(
-      'Ingresar',
+      'Login',
       name: 'login',
       desc: '',
       args: [],

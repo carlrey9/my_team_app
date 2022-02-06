@@ -25,8 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "creatteAccount":
             MessageLookupByLibrary.simpleMessage("Create account"),
         "forgotMyPassword":
-            MessageLookupByLibrary.simpleMessage("Olvidé mi contraseña"),
-        "login": MessageLookupByLibrary.simpleMessage("Ingresar"),
+            MessageLookupByLibrary.simpleMessage("Forgot my password"),
+        "login": MessageLookupByLibrary.simpleMessage("Login"),
         "manageYourTeam":
             MessageLookupByLibrary.simpleMessage("Manage your team"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),

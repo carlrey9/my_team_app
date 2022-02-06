@@ -3,7 +3,10 @@ import 'package:my_team_app/util/my_colors.dart';
 
 class TittleLogin extends StatelessWidget {
   final String text;
-  const TittleLogin({Key? key, required this.text}) : super(key: key);
+  const TittleLogin({
+    Key? key,
+    required this.text,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,18 +16,9 @@ class TittleLogin extends StatelessWidget {
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 40,
-          foreground: Paint()..color = MyColors.primaryColor,
+          color: Colors.orange,
+          fontWeight: FontWeight.bold,
         ),
-      ),
-      Text(
-        this.text,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 40,
-            foreground: Paint()
-              ..strokeWidth = 1
-              ..color = MyColors.textIcons
-              ..style = PaintingStyle.stroke),
       ),
     ]);
   }
