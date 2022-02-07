@@ -79,7 +79,7 @@ class FieldEmail extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
         decoration: InputDecoration(
-          icon: Icon(Icons.person),
+          prefixIcon: Icon(Icons.person),
           fillColor: Colors.white,
           border: new OutlineInputBorder(
             borderRadius: new BorderRadius.circular(12),
@@ -97,15 +97,19 @@ class FieldPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final proLogin = Provider.of<ProLogin>(context);
+    ProLogin proLogin = Provider.of<ProLogin>(context);
 
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
-        obscureText: true,
+        obscureText: proLogin.isObscure,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.password),
-          suffixIcon: Icon(Icons.remove_red_eye),
+          suffixIcon: InkWell(
+              onTap: () {
+                proLogin.isObscure = !proLogin.isObscure;
+              },
+              child: Icon(Icons.remove_red_eye)),
           fillColor: Colors.white,
           border: new OutlineInputBorder(
             borderRadius: new BorderRadius.circular(12),
@@ -146,6 +150,7 @@ class BtnLogin extends StatelessWidget {
       ),
       color: MyColors.acentColor,
       child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 20),
         height: _height / 12,
         width: _width / 4,
         child: FittedBox(

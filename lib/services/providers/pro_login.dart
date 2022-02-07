@@ -7,6 +7,7 @@ class ProLogin with ChangeNotifier {
 
   set isObscure(isObscure) {
     this._isObscure = isObscure;
+    print("isObscure = " + isObscure.toString());
     notifyListeners();
   }
 }
