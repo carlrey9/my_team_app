@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:my_team_app/models/user.dart';
 import 'package:my_team_app/services/providers/pro_login.dart';
 import 'package:my_team_app/util/widgets/title_login.dart';
 import 'package:provider/provider.dart';
 
 import 'generated/l10n.dart';
-import 'screens/login_screen.dart';
+import 'screens/login/login_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,9 +15,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(
-          value: ProLogin(),
-        )
+        Provider<UserProvider>(create: (_) => UserProvider()),
+        Provider<ProLogin>(create: (_) => ProLogin()),
       ],
       child: MaterialApp(
         theme: ThemeData(fontFamily: 'VarelaRound'),

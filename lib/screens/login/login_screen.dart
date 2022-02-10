@@ -1,6 +1,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:my_team_app/generated/l10n.dart';
+import 'package:my_team_app/models/user.dart';
+import 'package:my_team_app/screens/login/login_controller.dart';
 import 'package:my_team_app/services/providers/pro_login.dart';
 import 'package:my_team_app/util/my_colors.dart';
 import 'package:my_team_app/util/widgets/square.dart';
@@ -9,13 +11,22 @@ import 'package:my_team_app/util/widgets/sub_tittle_login.dart';
 import 'package:my_team_app/util/widgets/title_login.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final double _height = MediaQuery.of(context).size.height;
     final double _width = MediaQuery.of(context).size.width;
+
+    UserProvider userProvider = Provider.of<UserProvider>(context);
 
     return Scaffold(
       body: Stack(children: [
@@ -25,8 +36,8 @@ class LoginScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: SingleChildScrollView(
               child: Form(
+                key: _formKey,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Tittle(),
                     Subtittle(),
@@ -78,6 +89,10 @@ class FieldEmail extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
+        validator: (value) {
+          LoginController().validateFieldEmail(value, context);
+        },
+        onSaved: (value) {},
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.person),
           fillColor: Colors.white,
@@ -144,7 +159,9 @@ class BtnLogin extends StatelessWidget {
     final double _height = MediaQuery.of(context).size.height;
     final double _width = MediaQuery.of(context).size.width;
     return MaterialButton(
-      onPressed: () {},
+      onPressed: () {
+        _clickLogin();
+      },
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
@@ -162,6 +179,10 @@ class BtnLogin extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _clickLogin() {
+    LoginController().loginCorreo("email", "");
   }
 }
 

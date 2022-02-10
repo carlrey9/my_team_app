@@ -30,6 +30,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Maneja tu equipo"),
         "name": MessageLookupByLibrary.simpleMessage("Nombre"),
         "password": MessageLookupByLibrary.simpleMessage("Contraseña"),
+        "requiredField":
+            MessageLookupByLibrary.simpleMessage("Campo requerido"),
         "userName": MessageLookupByLibrary.simpleMessage("Usuario"),
         "welcomeMyTeamApp":
             MessageLookupByLibrary.simpleMessage("Bienvenido a \n My Team App")

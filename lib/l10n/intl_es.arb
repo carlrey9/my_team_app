@@ -6,5 +6,6 @@
     "creatteAccount": "Crear cuenta",
     "forgotMyPassword": "Olvidé mi contraseña",
     "login": "Ingresar",
-    "userName": "Usuario"
+    "userName": "Usuario",
+    "requiredField": "Campo requerido"
 }

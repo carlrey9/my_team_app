@@ -1,13 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 
 class ProLogin with ChangeNotifier {
   bool _isObscure = true;
 
-  get isObscure => _isObscure;
+  bool get isObscure => _isObscure;
 
-  set isObscure(isObscure) {
+  set isObscure(bool isObscure) {
     this._isObscure = isObscure;
-    print("isObscure = " + isObscure.toString());
+    log("isObscure = " + isObscure.toString());
     notifyListeners();
   }
 }
