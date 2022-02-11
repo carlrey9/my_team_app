@@ -23,7 +23,7 @@ class CrudUser {
       return user;
     } on SocketException {
     } catch (e) {
-      log("error: " + e.toString());
+      log("Error in login/CrudUser: " + e.toString());
     }
   }
 }

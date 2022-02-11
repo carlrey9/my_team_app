@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_team_app/generated/l10n.dart';
 import 'package:my_team_app/models/user.dart';
@@ -20,13 +21,14 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late double _height;
+  late double _width;
+  late UserProvider _userProvider;
+  late ProLogin _proLogin;
 
   @override
   Widget build(BuildContext context) {
-    final double _height = MediaQuery.of(context).size.height;
-    final double _width = MediaQuery.of(context).size.width;
-
-    UserProvider userProvider = Provider.of<UserProvider>(context);
+    _defVariables();
 
     return Scaffold(
       body: Stack(children: [
@@ -39,14 +41,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    Tittle(),
-                    Subtittle(),
+                    _tittle(),
+                    _subtittle(),
                     SizedBox(height: _height / 5),
-                    FieldEmail(),
-                    FieldPassword(),
-                    BtnForgotMyPassword(),
-                    BtnLogin(),
-                    BtnCreateAccount(),
+                    _fieldEmail(),
+                    _fieldPassword(),
+                    _btnForgotMyPassword(),
+                    _btnLogin(),
+                    _btnCreateAccount(),
                   ],
                 ),
               ),
@@ -56,43 +58,31 @@ class _LoginScreenState extends State<LoginScreen> {
       ]),
     );
   }
-}
 
-class Tittle extends StatelessWidget {
-  const Tittle({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _tittle() {
     return Container(
-        padding: EdgeInsets.symmetric(vertical: 30),
-        child: TittleLogin(text: S.of(context).welcomeMyTeamApp));
+      padding: EdgeInsets.symmetric(vertical: 30),
+      child: TittleLogin(text: S.of(context).welcomeMyTeamApp),
+    );
   }
-}
 
-class Subtittle extends StatelessWidget {
-  const Subtittle({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _subtittle() {
     return Container(
       margin: EdgeInsets.all(20),
       child: SubTittleLogin(text: S.of(context).manageYourTeam),
     );
   }
-}
 
-class FieldEmail extends StatelessWidget {
-  const FieldEmail({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _fieldEmail() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
         validator: (value) {
-          LoginController().validateFieldEmail(value, context);
+          return LoginController().validateFieldEmail(value ?? "", context);
         },
-        onSaved: (value) {},
+        onSaved: (value) {
+          _userProvider.email = value ?? "";
+        },
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.person),
           fillColor: Colors.white,
@@ -105,24 +95,23 @@ class FieldEmail extends StatelessWidget {
       ),
     );
   }
-}
 
-class FieldPassword extends StatelessWidget {
-  const FieldPassword({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    ProLogin proLogin = Provider.of<ProLogin>(context);
-
+  Widget _fieldPassword() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
-        obscureText: proLogin.isObscure,
+        validator: (value) {
+          return LoginController().validateFieldPassword(value ?? "", context);
+        },
+        onSaved: (value) {
+          _userProvider.password = value ?? "";
+        },
+        obscureText: _proLogin.isObscure,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.password),
           suffixIcon: InkWell(
               onTap: () {
-                proLogin.isObscure = !proLogin.isObscure;
+                _proLogin.isObscure = !_proLogin.isObscure;
               },
               child: Icon(Icons.remove_red_eye)),
           fillColor: Colors.white,
@@ -137,27 +126,15 @@ class FieldPassword extends StatelessWidget {
       ),
     );
   }
-}
 
-class BtnForgotMyPassword extends StatelessWidget {
-  const BtnForgotMyPassword({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _btnForgotMyPassword() {
     return TextButton(
       onPressed: () {},
       child: Text(S.of(context).forgotMyPassword),
     );
   }
-}
 
-class BtnLogin extends StatelessWidget {
-  const BtnLogin({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final double _height = MediaQuery.of(context).size.height;
-    final double _width = MediaQuery.of(context).size.width;
+  Widget _btnLogin() {
     return MaterialButton(
       onPressed: () {
         _clickLogin();
@@ -181,20 +158,25 @@ class BtnLogin extends StatelessWidget {
     );
   }
 
-  void _clickLogin() {
-    LoginController().loginCorreo("email", "");
+  void _clickLogin() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      await LoginController().loginCorreo(context, _userProvider);
+    }
   }
-}
 
-class BtnCreateAccount extends StatelessWidget {
-  const BtnCreateAccount({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _btnCreateAccount() {
     return TextButton(
       onPressed: () {},
       child: Text(S.of(context).creatteAccount),
     );
+  }
+
+  void _defVariables() {
+    _height = MediaQuery.of(context).size.height;
+    _width = MediaQuery.of(context).size.width;
+    _userProvider = Provider.of<UserProvider>(context);
+    _proLogin = Provider.of<ProLogin>(context);
   }
 }
 
