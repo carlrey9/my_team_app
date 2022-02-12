@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:my_team_app/util/my_colors.dart';
 
 class Square extends StatelessWidget {
-  const Square({Key? key}) : super(key: key);
+  final Color color;
+  const Square({Key? key, required this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class Square extends StatelessWidget {
         width: _width,
         height: _width,
         decoration: BoxDecoration(
-          color: MyColors.darkPrimaryColor,
+          color: this.color,
           borderRadius: BorderRadius.circular(10),
         ),
       ),

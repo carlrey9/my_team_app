@@ -3,7 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_team_app/generated/l10n.dart';
 import 'package:my_team_app/models/user.dart';
-import 'package:my_team_app/screens/login/login_controller.dart';
+import 'package:my_team_app/screens/login/create_account/create_account.dart';
+import 'package:my_team_app/screens/login/login/login_controller.dart';
 import 'package:my_team_app/services/providers/pro_login.dart';
 import 'package:my_team_app/util/my_colors.dart';
 import 'package:my_team_app/util/widgets/square.dart';
@@ -62,7 +63,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _tittle() {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 30),
-      child: TittleLogin(text: S.of(context).welcomeMyTeamApp),
+      child: TittleLogin(
+          text: S.of(context).welcomeMyTeamApp, color: MyColors.acentColor),
     );
   }
 
@@ -144,9 +146,8 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       color: MyColors.acentColor,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(horizontal: 10),
         height: _height / 12,
-        width: _width / 4,
         child: FittedBox(
           child: _proLogin.isCharging
               ? Container(
@@ -157,7 +158,8 @@ class _LoginScreenState extends State<LoginScreen> {
               : Text(
                   S.of(context).login,
                   style: TextStyle(
-                      color: MyColors.textIcons, fontWeight: FontWeight.bold),
+                    color: MyColors.textIcons,
+                  ),
                 ),
         ),
       ),
@@ -176,7 +178,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _btnCreateAccount() {
     return TextButton(
-      onPressed: () {},
+      onPressed: () {
+        _clickCreateAccount();
+      },
       child: Text(S.of(context).creatteAccount),
     );
   }
@@ -186,6 +190,11 @@ class _LoginScreenState extends State<LoginScreen> {
     _width = MediaQuery.of(context).size.width;
     _userProvider = Provider.of<UserProvider>(context);
     _proLogin = Provider.of<ProLogin>(context);
+  }
+
+  void _clickCreateAccount() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => CreateAccountScreen()));
   }
 }
 
@@ -203,7 +212,9 @@ class SquareLocal extends StatelessWidget {
           animate: true,
           spins: 1,
           duration: Duration(seconds: 350),
-          child: Square()),
+          child: Square(
+            color: MyColors.primaryColor,
+          )),
     );
   }
 }

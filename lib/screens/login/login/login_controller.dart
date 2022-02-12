@@ -3,8 +3,8 @@ import 'package:my_team_app/generated/l10n.dart';
 import 'package:my_team_app/services/firebase/firestore/crud_user.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/user.dart';
-import '../../services/providers/pro_login.dart';
+import '../../../models/user.dart';
+import '../../../services/providers/pro_login.dart';
 
 class LoginController {
   late ProLogin _proLogin;
