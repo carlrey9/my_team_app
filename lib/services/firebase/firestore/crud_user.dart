@@ -17,9 +17,8 @@ class CrudUser {
         email: email,
         password: password,
       );
-
       var user = authResult.user;
-
+      log("login exitoso");
       return user;
     } on SocketException {
     } catch (e) {

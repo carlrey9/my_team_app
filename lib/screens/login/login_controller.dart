@@ -7,6 +7,7 @@ import '../../models/user.dart';
 import '../../services/providers/pro_login.dart';
 
 class LoginController {
+  late ProLogin _proLogin;
   validateFieldEmail(
     String value,
     BuildContext context,
@@ -19,8 +20,13 @@ class LoginController {
   }
 
   Future<void> loginCorreo(
-      BuildContext context, UserProvider userProvider) async {
+    BuildContext context,
+    UserProvider userProvider,
+  ) async {
+    _proLogin = Provider.of<ProLogin>(context, listen: false);
+    _proLogin.isCharging = true;
     await CrudUser().login(userProvider.email, userProvider.password);
+    _proLogin.isCharging = false;
   }
 
   validateFieldPassword(

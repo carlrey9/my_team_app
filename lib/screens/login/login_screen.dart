@@ -148,11 +148,17 @@ class _LoginScreenState extends State<LoginScreen> {
         height: _height / 12,
         width: _width / 4,
         child: FittedBox(
-          child: Text(
-            S.of(context).login,
-            style: TextStyle(
-                color: MyColors.textIcons, fontWeight: FontWeight.bold),
-          ),
+          child: _proLogin.isCharging
+              ? Container(
+                  padding: EdgeInsets.all(10),
+                  child: CircularProgressIndicator(
+                    color: MyColors.textIcons,
+                  ))
+              : Text(
+                  S.of(context).login,
+                  style: TextStyle(
+                      color: MyColors.textIcons, fontWeight: FontWeight.bold),
+                ),
         ),
       ),
     );
@@ -161,7 +167,10 @@ class _LoginScreenState extends State<LoginScreen> {
   void _clickLogin() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      await LoginController().loginCorreo(context, _userProvider);
+      await LoginController().loginCorreo(
+        context,
+        _userProvider,
+      );
     }
   }
 
