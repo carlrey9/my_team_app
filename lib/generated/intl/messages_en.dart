@@ -22,10 +22,19 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "confirmPassword":
+            MessageLookupByLibrary.simpleMessage("Confirm password"),
         "creatteAccount":
             MessageLookupByLibrary.simpleMessage("Create account"),
+        "differentPassword":
+            MessageLookupByLibrary.simpleMessage("different password"),
+        "email": MessageLookupByLibrary.simpleMessage("Email"),
         "forgotMyPassword":
             MessageLookupByLibrary.simpleMessage("Forgot my password"),
+        "hintInfoCreateAccount": MessageLookupByLibrary.simpleMessage(
+            "Fill in all the information and press create account to create your new account"),
+        "invalidformat": MessageLookupByLibrary.simpleMessage("Invalid format"),
+        "lastname": MessageLookupByLibrary.simpleMessage("lastname"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "manageYourTeam":
             MessageLookupByLibrary.simpleMessage("Manage your team"),
@@ -34,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "requiredField": MessageLookupByLibrary.simpleMessage("Required field"),
         "userName": MessageLookupByLibrary.simpleMessage("Username"),
         "welcomeMyTeamApp":
-            MessageLookupByLibrary.simpleMessage("Welcome to \n My Team App")
+            MessageLookupByLibrary.simpleMessage("Welcome to \n My Team App"),
+        "write6Characters":
+            MessageLookupByLibrary.simpleMessage("Write at least 6 characters")
       };
 }

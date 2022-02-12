@@ -2,7 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_team_app/generated/l10n.dart';
-import 'package:my_team_app/models/user.dart';
+import 'package:my_team_app/services/providers/user_provider.dart';
 import 'package:my_team_app/screens/login/create_account/create_account.dart';
 import 'package:my_team_app/screens/login/login/login_controller.dart';
 import 'package:my_team_app/services/providers/pro_login.dart';

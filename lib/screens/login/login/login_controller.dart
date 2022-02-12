@@ -1,9 +1,9 @@
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:my_team_app/generated/l10n.dart';
-import 'package:my_team_app/services/firebase/firestore/crud_user.dart';
+import 'package:my_team_app/services/firebase/firestore/auth_user.dart';
 import 'package:provider/provider.dart';
 
-import '../../../models/user.dart';
+import '../../../services/providers/user_provider.dart';
 import '../../../services/providers/pro_login.dart';
 
 class LoginController {
@@ -25,7 +25,7 @@ class LoginController {
   ) async {
     _proLogin = Provider.of<ProLogin>(context, listen: false);
     _proLogin.isCharging = true;
-    await CrudUser().login(userProvider.email, userProvider.password);
+    await AuthUser().login(userProvider.email, userProvider.password);
     _proLogin.isCharging = false;
   }
 

@@ -7,5 +7,12 @@
     "forgotMyPassword": "Olvidé mi contraseña",
     "login": "Ingresar",
     "userName": "Usuario",
-    "requiredField": "Campo requerido"
+    "requiredField": "Campo requerido",
+    "lastname": "Apellido",
+    "confirmPassword": "Confirmar contraseña",
+    "hintInfoCreateAccount": "Completa toda la información y presiona crear cuenta para crear tu nueva cuenta",
+    "email": "Correo electrónico",
+    "invalidformat": "Formato inválido",
+    "write6Characters": "Escribe mínimo 6 caracteres",
+    "differentPassword": "Contraseñas diferentes"
 }

@@ -7,5 +7,12 @@
     "forgotMyPassword": "Forgot my password",
     "login": "Login",
     "userName": "Username",
-    "requiredField": "Required field"
+    "requiredField": "Required field",
+    "lastname": "lastname",
+    "confirmPassword": "Confirm password",
+    "hintInfoCreateAccount": "Fill in all the information and press create account to create your new account",
+    "email": "Email",
+    "invalidformat": "Invalid format",
+    "write6Characters": "Write at least 6 characters",
+    "differentPassword": "different password"
 }

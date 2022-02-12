@@ -11,7 +11,7 @@ class ProLogin with ChangeNotifier {
 
   set isObscure(bool isObscure) {
     this._isObscure = isObscure;
-    log("isObscure = " + isObscure.toString());
+
     notifyListeners();
   }
 
@@ -19,7 +19,7 @@ class ProLogin with ChangeNotifier {
 
   set keyForm(keyForm) {
     this._keyForm = keyForm;
-    log("keyForm = " + keyForm.toString());
+
     notifyListeners();
   }
 
@@ -27,7 +27,7 @@ class ProLogin with ChangeNotifier {
 
   set isCharging(bool isCharging) {
     this._isCharging = isCharging;
-    log("isCharging = " + isCharging.toString());
+
     notifyListeners();
   }
 }

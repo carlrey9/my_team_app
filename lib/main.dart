@@ -1,12 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:my_team_app/models/user.dart';
+import 'package:my_team_app/services/providers/create_account_provider.dart';
+import 'package:my_team_app/services/providers/user_provider.dart';
 import 'package:my_team_app/services/providers/pro_login.dart';
 import 'package:my_team_app/util/my_colors.dart';
-import 'package:my_team_app/util/widgets/title_login.dart';
 import 'package:provider/provider.dart';
-
 import 'generated/l10n.dart';
 import 'screens/login/login/login_screen.dart';
 
@@ -27,6 +26,8 @@ class MyApp extends StatelessWidget {
             providers: [
               ChangeNotifierProvider(create: (context) => ProLogin()),
               ChangeNotifierProvider(create: (context) => UserProvider()),
+              ChangeNotifierProvider(
+                  create: (context) => CreateAccountProvider()),
             ],
             child: MaterialApp(
               theme: ThemeData(

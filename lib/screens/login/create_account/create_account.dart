@@ -2,9 +2,13 @@ import 'dart:ui';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:my_team_app/models/user_vo.dart';
+import 'package:my_team_app/screens/login/create_account/create_account_controller.dart';
+import 'package:my_team_app/services/providers/create_account_provider.dart';
 import 'package:my_team_app/util/my_colors.dart';
 import 'package:my_team_app/util/widgets/square.dart';
 import 'package:my_team_app/util/widgets/title_login.dart';
+import 'package:provider/provider.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../util/widgets/app_barr_all.dart';
@@ -19,6 +23,10 @@ class CreateAccountScreen extends StatefulWidget {
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
   double _width = 0.0;
   double _height = 0.0;
+  final _formkey = GlobalKey<FormState>();
+  UserVO _userVO = new UserVO();
+  late CreateAccountProvider _myProvider;
+  TextEditingController _fieldPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,19 +39,21 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
           Center(
             child: Container(
               child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    _tittle(),
-                    _hintInformation(
-                        "Completa toda la información y presiona crear cuenta para crear tu nueva cuenta "),
-                    _fieldName(),
-                    _fieldLastname(),
-                    _fieldEmail(),
-                    _fieldPassword(),
-                    _fieldPasswordConfirm(),
-                    _messageError("errorr"),
-                    _btnCreateAccount(),
-                  ],
+                child: Form(
+                  key: _formkey,
+                  child: Column(
+                    children: [
+                      _tittle(),
+                      _hintInformation(S.of(context).hintInfoCreateAccount),
+                      _fieldName(),
+                      _fieldLastname(),
+                      _fieldEmail(),
+                      _fieldPassword(),
+                      _fieldPasswordConfirm(),
+                      _messageError(),
+                      _btnCreateAccount(),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -70,6 +80,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   void _defVariables() {
     _height = MediaQuery.of(context).size.height;
     _width = MediaQuery.of(context).size.width;
+    _myProvider = Provider.of<CreateAccountProvider>(context);
   }
 
   _tittle() {
@@ -116,6 +127,12 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: TextFormField(
+        validator: (value) {
+          return CreateAccountController().validatorName(value, context);
+        },
+        onSaved: (value) {
+          _userVO.name = value ?? "";
+        },
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.person),
           fillColor: Colors.white,
@@ -133,6 +150,12 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: TextFormField(
+        validator: (value) {
+          return CreateAccountController().validatorLastname(value, context);
+        },
+        onSaved: (value) {
+          _userVO.lastname = value ?? "";
+        },
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.person),
           fillColor: Colors.white,
@@ -140,7 +163,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
             borderRadius: new BorderRadius.circular(12),
             borderSide: new BorderSide(),
           ),
-          label: Text(S.of(context).name),
+          label: Text(S.of(context).lastname),
         ),
       ),
     );
@@ -150,6 +173,12 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: TextFormField(
+        validator: (value) {
+          return CreateAccountController().validatorEmail(value, context);
+        },
+        onSaved: (value) {
+          _userVO.email = value ?? "";
+        },
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.email),
           fillColor: Colors.white,
@@ -157,7 +186,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
             borderRadius: new BorderRadius.circular(12),
             borderSide: new BorderSide(),
           ),
-          label: Text(S.of(context).userName),
+          label: Text(S.of(context).email),
         ),
       ),
     );
@@ -167,9 +196,21 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: TextFormField(
+        obscureText: _myProvider.isObscurePassword,
+        controller: _fieldPasswordController,
+        validator: (value) {
+          return CreateAccountController().validatorPassword(value, context);
+        },
+        onSaved: (value) {
+          _userVO.password = value ?? "";
+        },
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.password),
-          suffixIcon: Icon(Icons.remove_red_eye),
+          suffixIcon: InkWell(
+              onTap: () {
+                _myProvider.isObscurePassword = !_myProvider.isObscurePassword;
+              },
+              child: Icon(Icons.remove_red_eye)),
           fillColor: Colors.white,
           border: new OutlineInputBorder(
             borderRadius: new BorderRadius.circular(12),
@@ -181,17 +222,75 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     );
   }
 
-  _messageError(String info) {
-    return Visibility(
-      visible: false,
-      child: Container(
-        color: Colors.red,
-        padding: EdgeInsets.all(10),
-        margin: EdgeInsets.symmetric(
-          horizontal: _width / 6,
-          vertical: 20,
+  Widget _fieldPasswordConfirm() {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      child: TextFormField(
+        obscureText: _myProvider.isObscureConfirmPassword,
+        validator: (value) {
+          return CreateAccountController().validatorConfirmPassword(
+              value, context, _fieldPasswordController.text);
+        },
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.password),
+          suffixIcon: InkWell(
+              onTap: () {
+                _myProvider.isObscureConfirmPassword =
+                    !_myProvider.isObscureConfirmPassword;
+              },
+              child: Icon(Icons.remove_red_eye)),
+          fillColor: Colors.white,
+          border: new OutlineInputBorder(
+            borderRadius: new BorderRadius.circular(12),
+            borderSide: new BorderSide(),
+          ),
+          label: Text(S.of(context).confirmPassword),
         ),
-        child: Text(info),
+      ),
+    );
+  }
+
+  Widget _messageError() {
+    return Visibility(
+      visible: _myProvider.showError,
+      child: Stack(
+        children: [
+          _wErrorMesagge(),
+          _wIconCancelErrorMesasage(),
+        ],
+      ),
+    );
+  }
+
+  Widget _wIconCancelErrorMesasage() {
+    return Positioned(
+      right: 0,
+      top: 20,
+      child: InkWell(
+          onTap: () {
+            _myProvider.showError = false;
+          },
+          child: Icon(
+            Icons.cancel_rounded,
+            color: MyColors.secundaryText,
+          )),
+    );
+  }
+
+  Container _wErrorMesagge() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.red[200],
+        borderRadius: BorderRadius.circular(12),
+      ),
+      width: _width / 3 * 2,
+      padding: EdgeInsets.all(20),
+      margin: EdgeInsets.symmetric(
+        vertical: 20,
+      ),
+      child: Text(
+        _myProvider.errorMessage,
+        style: TextStyle(),
       ),
     );
   }
@@ -200,7 +299,15 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     return Container(
       margin: EdgeInsets.all(20),
       child: MaterialButton(
-        onPressed: () {},
+        onPressed: () async {
+          if (_formkey.currentState!.validate()) {
+            _formkey.currentState!.save();
+            await CreateAccountController().createAccount(
+              context,
+              _userVO,
+            );
+          }
+        },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
@@ -209,42 +316,18 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
           height: _height / 12,
           width: _width / 3,
           child: FittedBox(
-            /* child: _proLogin.isCharging
+            child: _myProvider.isLoading
                 ? Container(
                     padding: EdgeInsets.all(10),
                     child: CircularProgressIndicator(
                       color: MyColors.textIcons,
                     ))
                 : Text(
-                    S.of(context).login,
+                    S.of(context).creatteAccount,
                     style: TextStyle(
                         color: MyColors.textIcons, fontWeight: FontWeight.bold),
-                  ), */
-
-            child: Text(
-              S.of(context).creatteAccount,
-              style: TextStyle(
-                  color: MyColors.textIcons, fontWeight: FontWeight.bold),
-            ),
+                  ),
           ),
-        ),
-      ),
-    );
-  }
-
-  _fieldPasswordConfirm() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      child: TextFormField(
-        decoration: InputDecoration(
-          prefixIcon: Icon(Icons.password),
-          suffixIcon: Icon(Icons.remove_red_eye),
-          fillColor: Colors.white,
-          border: new OutlineInputBorder(
-            borderRadius: new BorderRadius.circular(12),
-            borderSide: new BorderSide(),
-          ),
-          label: Text(S.of(context).password),
         ),
       ),
     );
