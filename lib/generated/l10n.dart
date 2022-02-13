@@ -209,6 +209,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Verify email`
+  String get verifyEmail {
+    return Intl.message(
+      'Verify email',
+      name: 'verifyEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We have sent an email to your email to confirm, check it to be able to enter with your new account`
+  String get verifyYourEmail {
+    return Intl.message(
+      'We have sent an email to your email to confirm, check it to be able to enter with your new account',
+      name: 'verifyYourEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We will send information to your email to be able to reset the password`
+  String get infoForgotPassword {
+    return Intl.message(
+      'We will send information to your email to be able to reset the password',
+      name: 'infoForgotPassword',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

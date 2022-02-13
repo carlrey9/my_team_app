@@ -14,5 +14,8 @@
     "email": "Email",
     "invalidformat": "Invalid format",
     "write6Characters": "Write at least 6 characters",
-    "differentPassword": "different password"
+    "differentPassword": "different password",
+    "verifyEmail": "Verify email",
+    "verifyYourEmail": "We have sent an email to your email to confirm, check it to be able to enter with your new account",
+    "infoForgotPassword": "We will send information to your email to be able to reset the password"
 }

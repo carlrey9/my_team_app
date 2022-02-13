@@ -1,12 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:my_team_app/models/user_vo.dart';
 import 'package:my_team_app/services/firebase/firestore/auth_user.dart';
 import 'package:my_team_app/services/providers/create_account_provider.dart';
+import 'package:my_team_app/util/widgets/alert_dialog_opts.dart';
 import 'package:provider/provider.dart';
 
 import '../../../generated/l10n.dart';
 
 class CreateAccountController {
+  late BuildContext context;
   validatorName(String? name, BuildContext context) {
     if (name!.isEmpty) {
       return S.of(context).requiredField;
@@ -34,7 +38,10 @@ class CreateAccountController {
     return null;
   }
 
-  validatorPassword(String? password, BuildContext context) {
+  validatorPassword(
+    String? password,
+    BuildContext context,
+  ) {
     if (password!.isEmpty) {
       return S.of(context).requiredField;
     }
@@ -46,7 +53,10 @@ class CreateAccountController {
   }
 
   validatorConfirmPassword(
-      String? confirmPassword, BuildContext context, String password) {
+    String? confirmPassword,
+    BuildContext context,
+    String password,
+  ) {
     if (confirmPassword!.isEmpty) {
       return S.of(context).requiredField;
     }
@@ -56,7 +66,11 @@ class CreateAccountController {
     return null;
   }
 
-  Future<void> createAccount(BuildContext context, UserVO userVO) async {
+  Future<void> createAccount(
+    BuildContext context,
+    UserVO userVO,
+  ) async {
+    this.context = context;
     final _myProvider =
         Provider.of<CreateAccountProvider>(context, listen: false);
     _myProvider.isLoading = true;
@@ -67,7 +81,29 @@ class CreateAccountController {
     _myProvider.isLoading = false;
   }
 
-  Future<void> _registerUser(UserVO userVO, BuildContext context) async {
-    await AuthUser().registerUser(userVO.email, userVO.password, context);
+  Future<void> _registerUser(
+    UserVO userVO,
+    BuildContext context,
+  ) async {
+    User? user =
+        await AuthUser().registerUser(userVO.email, userVO.password, context);
+    if (user != null) {
+      _showAlertVerifyEmail(context);
+    }
+  }
+
+  void _showAlertVerifyEmail(BuildContext context) {
+    alertDialogOpts(
+        context: context,
+        tittle: S.of(context).verifyEmail,
+        tapPositive: _tapPositive,
+        txtBtnPositive: "OK",
+        subTittle: S.of(context).verifyYourEmail,
+        dismissible: false);
+  }
+
+  _tapPositive() {
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
   }
 }

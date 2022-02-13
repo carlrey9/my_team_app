@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late double _height;
   late double _width;
   late UserProvider _userProvider;
-  late ProLogin _proLogin;
+  late LoginProvider _loginProvider;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     _tittle(),
                     _subtittle(),
-                    SizedBox(height: _height / 5),
+                    _errorMesage(),
                     _fieldEmail(),
                     _fieldPassword(),
                     _btnForgotMyPassword(),
@@ -57,6 +57,51 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ]),
+    );
+  }
+
+  SizedBox _errorMesage() {
+    return SizedBox(
+        child: _loginProvider.showError
+            ? Stack(
+                children: [
+                  _wErrorMesagge(),
+                  _wIconCancelErrorMesasage(),
+                ],
+              )
+            : Container(height: _height / 5));
+  }
+
+  Widget _wIconCancelErrorMesasage() {
+    return Positioned(
+      right: 0,
+      top: 20,
+      child: InkWell(
+          onTap: () {
+            _loginProvider.showError = false;
+          },
+          child: Icon(
+            Icons.cancel_rounded,
+            color: MyColors.secundaryText,
+          )),
+    );
+  }
+
+  Container _wErrorMesagge() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.red[200],
+        borderRadius: BorderRadius.circular(12),
+      ),
+      width: _width / 3 * 2,
+      padding: EdgeInsets.all(20),
+      margin: EdgeInsets.symmetric(
+        vertical: 20,
+      ),
+      child: Text(
+        _loginProvider.errorMesasge,
+        style: TextStyle(),
+      ),
     );
   }
 
@@ -108,12 +153,12 @@ class _LoginScreenState extends State<LoginScreen> {
         onSaved: (value) {
           _userProvider.password = value ?? "";
         },
-        obscureText: _proLogin.isObscure,
+        obscureText: _loginProvider.isObscure,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.password),
           suffixIcon: InkWell(
               onTap: () {
-                _proLogin.isObscure = !_proLogin.isObscure;
+                _loginProvider.isObscure = !_loginProvider.isObscure;
               },
               child: Icon(Icons.remove_red_eye)),
           fillColor: Colors.white,
@@ -131,7 +176,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _btnForgotMyPassword() {
     return TextButton(
-      onPressed: () {},
+      onPressed: () {
+        _clickForgotMyPassword();
+      },
       child: Text(S.of(context).forgotMyPassword),
     );
   }
@@ -148,8 +195,9 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
         height: _height / 12,
+        width: _width / 3,
         child: FittedBox(
-          child: _proLogin.isCharging
+          child: _loginProvider.isCharging
               ? Container(
                   padding: EdgeInsets.all(10),
                   child: CircularProgressIndicator(
@@ -169,6 +217,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void _clickLogin() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      _loginProvider.showError = false;
       await LoginController().loginCorreo(
         context,
         _userProvider,
@@ -189,12 +238,16 @@ class _LoginScreenState extends State<LoginScreen> {
     _height = MediaQuery.of(context).size.height;
     _width = MediaQuery.of(context).size.width;
     _userProvider = Provider.of<UserProvider>(context);
-    _proLogin = Provider.of<ProLogin>(context);
+    _loginProvider = Provider.of<LoginProvider>(context);
   }
 
   void _clickCreateAccount() {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => CreateAccountScreen()));
+  }
+
+  void _clickForgotMyPassword() {
+    LoginController().goToForgotPassword(context);
   }
 }
 

@@ -8,6 +8,7 @@ import 'package:my_team_app/util/my_colors.dart';
 import 'package:provider/provider.dart';
 import 'generated/l10n.dart';
 import 'screens/login/login/login_screen.dart';
+import 'services/providers/forgot_password_provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,10 +25,12 @@ class MyApp extends StatelessWidget {
         } else {
           return MultiProvider(
             providers: [
-              ChangeNotifierProvider(create: (context) => ProLogin()),
+              ChangeNotifierProvider(create: (context) => LoginProvider()),
               ChangeNotifierProvider(create: (context) => UserProvider()),
               ChangeNotifierProvider(
                   create: (context) => CreateAccountProvider()),
+              ChangeNotifierProvider(
+                  create: (context) => ForgotPasswordProvider()),
             ],
             child: MaterialApp(
               theme: ThemeData(

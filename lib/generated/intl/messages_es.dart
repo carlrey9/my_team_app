@@ -32,6 +32,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Olvidé mi contraseña"),
         "hintInfoCreateAccount": MessageLookupByLibrary.simpleMessage(
             "Completa toda la información y presiona crear cuenta para crear tu nueva cuenta"),
+        "infoForgotPassword": MessageLookupByLibrary.simpleMessage(
+            "Enviaremos información a tu email para poder restablecer la contraseña"),
         "invalidformat":
             MessageLookupByLibrary.simpleMessage("Formato inválido"),
         "lastname": MessageLookupByLibrary.simpleMessage("Apellido"),
@@ -43,6 +45,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "requiredField":
             MessageLookupByLibrary.simpleMessage("Campo requerido"),
         "userName": MessageLookupByLibrary.simpleMessage("Usuario"),
+        "verifyEmail": MessageLookupByLibrary.simpleMessage("Verify email"),
+        "verifyYourEmail": MessageLookupByLibrary.simpleMessage(
+            "Hemos enviado un correo a tu email para confirmarlo, revisalo para poder ingresar con tu nueva cuenta"),
         "welcomeMyTeamApp":
             MessageLookupByLibrary.simpleMessage("Bienvenido a \n My Team App"),
         "write6Characters":
