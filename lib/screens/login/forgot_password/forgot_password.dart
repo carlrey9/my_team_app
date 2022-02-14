@@ -26,13 +26,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     return Scaffold(
       body: Container(
           padding: EdgeInsets.all(40),
-          child: Column(
-            children: [
-              _tittle(),
-              _filedEmail(),
-              _errorMesage(),
-              _btnPassword(),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                _tittle(),
+                _filedEmail(),
+                _errorMesage(),
+                _btnPassword(),
+              ],
+            ),
           )),
       appBar: appBarAllTittle(Text(S.of(context).forgotMyPassword)),
     );
@@ -66,7 +68,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     return Container(
       child: MaterialButton(
         onPressed: () {
-          _clickLogin();
+          _clickPassword();
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
@@ -95,9 +97,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     );
   }
 
-  void _clickLogin() {
+  void _clickPassword() async {
     if (_emailController.text.isNotEmpty) {
-      ForgotPasswordConroller().sendEmail(_emailController.text);
+      await ForgotPasswordConroller().sendEmail(_emailController.text, context);
     }
   }
 
@@ -108,6 +110,48 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   }
 
   Widget _errorMesage() {
-    return _passwordProvider.showError ? Container() : SizedBox();
+    return _passwordProvider.showError
+        ? Container(
+            child: Stack(
+              children: [
+                _wErrorMesagge(),
+                _wIconCancelErrorMesasage(),
+              ],
+            ),
+          )
+        : SizedBox();
+  }
+
+  Widget _wIconCancelErrorMesasage() {
+    return Positioned(
+      right: 0,
+      top: 20,
+      child: InkWell(
+          onTap: () {
+            _passwordProvider.showError = false;
+          },
+          child: Icon(
+            Icons.cancel_rounded,
+            color: MyColors.secundaryText,
+          )),
+    );
+  }
+
+  Container _wErrorMesagge() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.red[200],
+        borderRadius: BorderRadius.circular(12),
+      ),
+      width: _width / 3 * 2,
+      padding: EdgeInsets.all(20),
+      margin: EdgeInsets.symmetric(
+        vertical: 20,
+      ),
+      child: Text(
+        _passwordProvider.errorMesage,
+        style: TextStyle(),
+      ),
+    );
   }
 }

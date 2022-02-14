@@ -9,6 +9,7 @@ import 'package:my_team_app/services/providers/pro_login.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/create_account_provider.dart';
+import '../../providers/forgot_password_provider.dart';
 
 class AuthUser {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -62,12 +63,22 @@ class AuthUser {
     await user!.sendEmailVerification();
   }
 
-  Future<void> sendEmailChangePassword(String text) async {
+  Future<bool> sendEmailChangePassword(
+    String text,
+    BuildContext context,
+  ) async {
+    ForgotPasswordProvider _passwordProvider =
+        Provider.of<ForgotPasswordProvider>(context, listen: false);
     try {
       await firebaseAuth.sendPasswordResetEmail(email: text);
+      log("✅ E-mail sent for recover password");
+      return true;
     } on FirebaseAuthException catch (e) {
       log("❌ Error in AuthUser/sendEmailChangePassword: " +
           e.message.toString());
+      _passwordProvider.errorMesage = e.message.toString();
+      _passwordProvider.showError = true;
+      return false;
     }
   }
 }

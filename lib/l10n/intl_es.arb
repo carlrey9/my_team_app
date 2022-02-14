@@ -15,7 +15,8 @@
     "invalidformat": "Formato inválido",
     "write6Characters": "Escribe mínimo 6 caracteres",
     "differentPassword": "Contraseñas diferentes",
-    "verifyEmail": "Verify email",
+    "verifyEmail": "Verifica tu Correo",
     "verifyYourEmail": "Hemos enviado un correo a tu email para confirmarlo, revisalo para poder ingresar con tu nueva cuenta",
-    "infoForgotPassword": "Enviaremos información a tu email para poder restablecer la contraseña"
+    "infoForgotPassword": "Enviaremos información a tu email para poder restablecer la contraseña",
+    "verifyEmailToContinue": "Revisa tu correo para continuar"
 }

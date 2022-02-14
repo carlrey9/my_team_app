@@ -45,6 +45,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "requiredField": MessageLookupByLibrary.simpleMessage("Required field"),
         "userName": MessageLookupByLibrary.simpleMessage("Username"),
         "verifyEmail": MessageLookupByLibrary.simpleMessage("Verify email"),
+        "verifyEmailToContinue": MessageLookupByLibrary.simpleMessage(
+            "Verify your E-mail to continue"),
         "verifyYourEmail": MessageLookupByLibrary.simpleMessage(
             "We have sent an email to your email to confirm, check it to be able to enter with your new account"),
         "welcomeMyTeamApp":

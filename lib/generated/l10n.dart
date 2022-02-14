@@ -239,6 +239,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Verify your E-mail to continue`
+  String get verifyEmailToContinue {
+    return Intl.message(
+      'Verify your E-mail to continue',
+      name: 'verifyEmailToContinue',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

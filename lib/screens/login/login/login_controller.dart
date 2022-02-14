@@ -63,7 +63,12 @@ class LoginController {
   }
 
   void _goToHome(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home()));
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => Home(),
+        ),
+        (route) => false);
   }
 
   void goToForgotPassword(BuildContext context) {
