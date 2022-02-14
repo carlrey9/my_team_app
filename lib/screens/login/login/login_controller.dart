@@ -9,6 +9,7 @@ import 'package:my_team_app/screens/home/home.dart';
 import 'package:my_team_app/screens/login/forgot_password/forgot_password.dart';
 import 'package:my_team_app/services/firebase/firestore/auth_user.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../services/providers/user_provider.dart';
 import '../../../services/providers/pro_login.dart';
@@ -39,6 +40,7 @@ class LoginController {
     );
     if (user != null) {
       if (user.emailVerified) {
+        await _saveInfoLogin(userProvider.email, userProvider.password);
         _goToHome(context);
       } else {
         log("❌ sin confirmar email");
@@ -48,6 +50,27 @@ class LoginController {
     }
 
     _proLogin.isCharging = false;
+    return;
+  }
+
+  Future<void> loginCorreoPreLogin(
+    BuildContext context,
+    String email,
+    String password,
+  ) async {
+    User? user = await AuthUser().login(
+      email,
+      password,
+      context,
+    );
+    if (user != null) {
+      if (user.emailVerified) {
+        log("✅ prelogin founded");
+        _goToHome(context);
+      } else {
+        log("❌ sin confirmar email");
+      }
+    }
     return;
   }
 
@@ -69,10 +92,46 @@ class LoginController {
           builder: (BuildContext context) => Home(),
         ),
         (route) => false);
+    return;
   }
 
   void goToForgotPassword(BuildContext context) {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => ForgotPasswordScreen()));
+  }
+
+  Future<void> _saveInfoLogin(String email, String password) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? emailTemp = pref.getString("email");
+
+    if (emailTemp == null || emailTemp.isEmpty) {
+      try {
+        pref.setString("email", email);
+        pref.setString("password", password);
+      } catch (e) {
+        log("❌ Error in LoginController/_saveInfoLogin: " + e.toString());
+      }
+    }
+  }
+
+  Future<void> verifyPreLogin(BuildContext context) async {
+    UserProvider _userProvider = Provider.of<UserProvider>(context);
+    try {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      String? email = pref.getString("email");
+      String? password = pref.getString("password");
+
+      if (email == null || password == null) {
+        log("⏺ not found preLogins");
+        return;
+      } else {
+        _userProvider.email = email;
+        _userProvider.password = password;
+        return;
+      }
+    } catch (e) {
+      log("⏺ not found preLogins");
+      return;
+    }
   }
 }
