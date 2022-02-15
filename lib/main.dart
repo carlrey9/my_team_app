@@ -8,6 +8,7 @@ import 'package:my_team_app/util/my_colors.dart';
 import 'package:provider/provider.dart';
 import 'generated/l10n.dart';
 import 'screens/login/login/login_screen.dart';
+import 'screens/wrapper/wrapper.dart';
 import 'services/providers/forgot_password_provider.dart';
 
 void main() => runApp(MyApp());
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
                 primaryColor: MyColors.primaryColor,
               ),
               debugShowCheckedModeBanner: false,
-              home: LoginScreen(),
+              home: Wrapper(),
               localizationsDelegates: [
                 S.delegate,
                 GlobalMaterialLocalizations.delegate,

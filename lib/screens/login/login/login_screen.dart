@@ -26,7 +26,6 @@ class _LoginScreenState extends State<LoginScreen> {
   late double _width;
   late UserProvider _userProvider;
   late LoginProvider _loginProvider;
-  bool _isfirtsIn = true;
 
   @override
   Widget build(BuildContext context) {
@@ -38,30 +37,12 @@ class _LoginScreenState extends State<LoginScreen> {
           SquareLocal(),
           Center(
             child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: _isfirtsIn
-                    ? FutureBuilder(
-                        future: _verifyPreLogin(context),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return _loading();
-                          } else {
-                            _isfirtsIn = false;
-                            return _body();
-                          }
-                        },
-                      )
-                    : _body()),
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: _body(),
+            ),
           ),
         ],
       ),
-    );
-  }
-
-  Center _loading() {
-    return Center(
-      child: CircularProgressIndicator(color: MyColors.primaryColor),
     );
   }
 
@@ -273,14 +254,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _clickForgotMyPassword() {
     LoginController().goToForgotPassword(context);
-  }
-
-  _verifyPreLogin(BuildContext context) async {
-    await LoginController().verifyPreLogin(context);
-    if (_userProvider.email.isNotEmpty && _userProvider.password.isNotEmpty) {
-      await LoginController().loginCorreoPreLogin(
-          context, _userProvider.email, _userProvider.password);
-    }
   }
 }
 
