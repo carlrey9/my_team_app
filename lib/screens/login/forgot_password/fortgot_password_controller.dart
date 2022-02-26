@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:my_team_app/services/firebase/firestore/auth_user.dart';
+import 'package:my_team_app/services/firebase/auth/auth_user.dart';
 import 'package:my_team_app/util/widgets/alert_dialog_opts.dart';
 
 import '../../../generated/l10n.dart';

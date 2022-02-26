@@ -188,6 +188,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
           ),
           label: Text(S.of(context).email),
         ),
+        keyboardType: TextInputType.emailAddress,
       ),
     );
   }

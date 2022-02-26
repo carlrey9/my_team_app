@@ -145,6 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           label: Text(S.of(context).userName),
         ),
+        keyboardType: TextInputType.emailAddress,
       ),
     );
   }

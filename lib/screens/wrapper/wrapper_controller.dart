@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_team_app/screens/login/login/login_screen.dart';
-import 'package:my_team_app/services/firebase/firestore/auth_user.dart';
+import 'package:my_team_app/services/firebase/auth/auth_user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../home/home.dart';
 

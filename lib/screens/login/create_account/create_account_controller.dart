@@ -2,7 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:my_team_app/models/user_vo.dart';
-import 'package:my_team_app/services/firebase/firestore/auth_user.dart';
+import 'package:my_team_app/services/firebase/auth/auth_user.dart';
+import 'package:my_team_app/services/firebase/firestore/crud_user.dart';
 import 'package:my_team_app/services/providers/create_account_provider.dart';
 import 'package:my_team_app/util/widgets/alert_dialog_opts.dart';
 import 'package:provider/provider.dart';
@@ -87,6 +88,8 @@ class CreateAccountController {
   ) async {
     User? user =
         await AuthUser().registerUser(userVO.email, userVO.password, context);
+    await _registerFirestore(user, userVO);
+
     if (user != null) {
       _showAlertVerifyEmail(context);
     }
@@ -105,5 +108,11 @@ class CreateAccountController {
   _tapPositive() {
     Navigator.of(context).pop();
     Navigator.of(context).pop();
+  }
+
+  _registerFirestore(User? user, UserVO userVO) async {
+    userVO.id = user!.uid.toString();
+
+    await CrudUser().addUser(userVO);
   }
 }
