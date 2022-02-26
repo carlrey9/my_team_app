@@ -12,26 +12,30 @@ class Wrapper extends StatefulWidget {
 }
 
 class _WrapperState extends State<Wrapper> {
+  bool login = false;
+  @override
+  void initState() {
+    super.initState();
+    _getLogin();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-          future: _verifyPreLogin(),
-          builder: (context, AsyncSnapshot<bool?> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: GlobalLoading(),
-              );
-            } else {
-              return Center(
-                child: GlobalLoading(),
-              );
-            }
-          }),
+      body: Container(
+        child: Center(
+          child: GlobalLoading(),
+        ),
+      ),
     );
   }
 
-  Future<bool> _verifyPreLogin() async {
-    return WrapperController().isAlreadyLogin(context);
+  void _getLogin() async {
+    login = await WrapperController().isAlreadyLogin(context);
+    if (login) {
+      WrapperController().goToHome(context);
+    } else {
+      WrapperController().goToLoginScreen(context);
+    }
   }
 }

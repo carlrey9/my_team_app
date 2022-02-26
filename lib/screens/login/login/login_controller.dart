@@ -16,6 +16,7 @@ import '../../../services/providers/pro_login.dart';
 
 class LoginController {
   late LoginProvider _proLogin;
+  bool _alreadyCallLogin = false;
   validateFieldEmail(
     String value,
     BuildContext context,
@@ -86,13 +87,15 @@ class LoginController {
   }
 
   void _goToHome(BuildContext context) {
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => Home(),
-        ),
-        (route) => false);
-    return;
+    if (!_alreadyCallLogin) {
+      _alreadyCallLogin = true;
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => Home(),
+          ),
+          (route) => false);
+    }
   }
 
   void goToForgotPassword(BuildContext context) {

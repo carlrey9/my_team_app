@@ -12,16 +12,13 @@ class WrapperController {
     String? _password = pref.getString("password");
 
     if (_email == null || _password == null) {
-      goToLoginScreen(context);
       return false;
     }
 
     User? user = await AuthUser().login(_email, _password, context);
     if (user != null) {
-      goToHome(context);
       return true;
     } else {
-      goToLoginScreen(context);
       return false;
     }
   }
@@ -44,5 +41,3 @@ class WrapperController {
         (route) => false);
   }
 }
-
-class HomePage {}
