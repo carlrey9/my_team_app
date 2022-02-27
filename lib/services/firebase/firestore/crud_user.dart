@@ -13,7 +13,7 @@ class CrudUser {
     UserVO userVO,
   ) async {
     try {
-      final docRef = users.doc();
+      final docRef = users.doc(userVO.id);
       await docRef.set(userVO.toMap());
       log("🆗 addUser/CrudUser ");
     } catch (e) {

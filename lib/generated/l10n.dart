@@ -249,6 +249,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Teams`
+  String get teams {
+    return Intl.message(
+      'Teams',
+      name: 'teams',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create Team`
+  String get createTeam {
+    return Intl.message(
+      'Create Team',
+      name: 'createTeam',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `complete the information`
+  String get fillinfo {
+    return Intl.message(
+      'complete the information',
+      name: 'fillinfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Categorie`
+  String get categorie {
+    return Intl.message(
+      'Categorie',
+      name: 'categorie',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Team name, then you can change it but you must define one initially`
+  String get helpNameTeam {
+    return Intl.message(
+      'Team name, then you can change it but you must define one initially',
+      name: 'helpNameTeam',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Team category, you are free to define the category, it can be by age range, example: (Junior), team level, example (level 2), etc.`
+  String get helpCategorieTeam {
+    return Intl.message(
+      'Team category, you are free to define the category, it can be by age range, example: (Junior), team level, example (level 2), etc.',
+      name: 'helpCategorieTeam',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save Team`
+  String get saveTeam {
+    return Intl.message(
+      'Save Team',
+      name: 'saveTeam',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

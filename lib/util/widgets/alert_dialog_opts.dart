@@ -17,7 +17,7 @@ dynamic alertDialogOpts(
   }
   return showDialog(
     context: context,
-    barrierDismissible: false,
+    barrierDismissible: dismissible,
     builder: (context) => AlertDialog(
       title: Text(
         tittle == null ? "" : tittle,

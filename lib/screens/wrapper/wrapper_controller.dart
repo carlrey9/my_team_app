@@ -16,6 +16,9 @@ class WrapperController {
     }
 
     User? user = await AuthUser().login(_email, _password, context);
+    if (!user!.emailVerified) {
+      return false;
+    }
     if (user != null) {
       return true;
     } else {

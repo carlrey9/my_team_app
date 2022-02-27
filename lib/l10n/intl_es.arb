@@ -18,5 +18,12 @@
     "verifyEmail": "Verifica tu Correo",
     "verifyYourEmail": "Hemos enviado un correo a tu email para confirmarlo, revisalo para poder ingresar con tu nueva cuenta",
     "infoForgotPassword": "Enviaremos información a tu email para poder restablecer la contraseña",
-    "verifyEmailToContinue": "Revisa tu correo para continuar"
+    "verifyEmailToContinue": "Revisa tu correo para continuar",
+    "teams": "Equipos",
+    "createTeam": "Crear Equipo",
+    "fillinfo": "completa la información",
+    "categorie": "Categoría",
+    "helpNameTeam": "Nombre del equipo, luego puedes cambiarlo pero debes definir uno inicialmente",
+    "helpCategorieTeam": "Categoria del equipo, eres libre de definir la categoría, puede ser por rango de edades, ejemplo:(Junior), nivel del equipo, ejemplo(nivel 2), etc.",
+    "saveTeam": "guardar Equipo"
 }

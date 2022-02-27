@@ -22,15 +22,23 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "categorie": MessageLookupByLibrary.simpleMessage("Categorie"),
         "confirmPassword":
             MessageLookupByLibrary.simpleMessage("Confirm password"),
+        "createTeam": MessageLookupByLibrary.simpleMessage("Create Team"),
         "creatteAccount":
             MessageLookupByLibrary.simpleMessage("Create account"),
         "differentPassword":
             MessageLookupByLibrary.simpleMessage("different password"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "fillinfo":
+            MessageLookupByLibrary.simpleMessage("complete the information"),
         "forgotMyPassword":
             MessageLookupByLibrary.simpleMessage("Forgot my password"),
+        "helpCategorieTeam": MessageLookupByLibrary.simpleMessage(
+            "Team category, you are free to define the category, it can be by age range, example: (Junior), team level, example (level 2), etc."),
+        "helpNameTeam": MessageLookupByLibrary.simpleMessage(
+            "Team name, then you can change it but you must define one initially"),
         "hintInfoCreateAccount": MessageLookupByLibrary.simpleMessage(
             "Fill in all the information and press create account to create your new account"),
         "infoForgotPassword": MessageLookupByLibrary.simpleMessage(
@@ -43,6 +51,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "requiredField": MessageLookupByLibrary.simpleMessage("Required field"),
+        "saveTeam": MessageLookupByLibrary.simpleMessage("Save Team"),
+        "teams": MessageLookupByLibrary.simpleMessage("Teams"),
         "userName": MessageLookupByLibrary.simpleMessage("Username"),
         "verifyEmail": MessageLookupByLibrary.simpleMessage("Verify email"),
         "verifyEmailToContinue": MessageLookupByLibrary.simpleMessage(
