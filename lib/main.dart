@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:my_team_app/services/providers/create_account_provider.dart';
+import 'package:my_team_app/services/providers/create_team_provider.dart';
 import 'package:my_team_app/services/providers/user_provider.dart';
 import 'package:my_team_app/services/providers/pro_login.dart';
 import 'package:my_team_app/util/my_colors.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
             providers: [
               ChangeNotifierProvider(create: (context) => LoginProvider()),
               ChangeNotifierProvider(create: (context) => UserProvider()),
+              ChangeNotifierProvider(create: (context) => CreateTeamProvider()),
               ChangeNotifierProvider(
                   create: (context) => CreateAccountProvider()),
               ChangeNotifierProvider(

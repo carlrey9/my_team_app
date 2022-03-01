@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:my_team_app/generated/l10n.dart';
-import 'package:my_team_app/screens/home/home.dart';
+import 'package:my_team_app/screens/home/home/home.dart';
 import 'package:my_team_app/screens/login/forgot_password/forgot_password.dart';
 import 'package:my_team_app/services/firebase/auth/auth_user.dart';
 import 'package:provider/provider.dart';

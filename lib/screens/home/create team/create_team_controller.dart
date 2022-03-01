@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:my_team_app/models/team_vo.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../util/widgets/alert_dialog_opts.dart';
@@ -34,5 +35,10 @@ class CreateTeamController {
     Navigator.of(_context).pop();
   }
 
-  void onTapSaveButton(BuildContext context) {}
+  Future tapSaveTeam(
+    BuildContext context,
+    TeamVo teamVo,
+  ) async {
+    print(teamVo);
+  }
 }

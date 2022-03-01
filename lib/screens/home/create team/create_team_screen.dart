@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:my_team_app/models/team_vo.dart';
 import 'package:my_team_app/screens/home/create%20team/create_team_controller.dart';
+import 'package:my_team_app/services/providers/create_team_provider.dart';
 import 'package:my_team_app/util/widgets/sub_tittle_login.dart';
+import 'package:provider/provider.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../util/my_colors.dart';
@@ -13,8 +16,12 @@ class CreateTeamScreen extends StatefulWidget {
 }
 
 class _CreateTeamScreenState extends State<CreateTeamScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late CreateTeamProvider _createTeamProvider;
+  TeamVo _teamVo = new TeamVo();
   @override
   Widget build(BuildContext context) {
+    _createTeamProvider = Provider.of<CreateTeamProvider>(context);
     return Scaffold(
       appBar: _appbar(context),
       body: _body(),
@@ -31,12 +38,14 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
 
   Center _body() {
     return Center(
-      child: Column(
-        children: [
-          /* _textTittle(), */
-          _fieldName(),
-          _fieldCategoria(),
-        ],
+      child: Form(
+        child: Column(
+          children: [
+            /* _textTittle(), */
+            _fieldName(),
+            _fieldCategoria(),
+          ],
+        ),
       ),
     );
   }
@@ -59,6 +68,16 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
           label: Text(S.of(context).name),
           suffixIcon: _iconHelpName(),
         ),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return S.of(context).requiredField;
+          } else {
+            return null;
+          }
+        },
+        onSaved: (value) {
+          _teamVo.name = value ?? "";
+        },
       ),
     );
   }
@@ -78,14 +97,25 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextFormField(
         decoration: InputDecoration(
-            prefixIcon: Icon(Icons.category),
-            fillColor: Colors.white,
-            border: new OutlineInputBorder(
-              borderRadius: new BorderRadius.circular(12),
-              borderSide: new BorderSide(),
-            ),
-            label: Text(S.of(context).categorie),
-            suffixIcon: _iconHelpCategorie()),
+          prefixIcon: Icon(Icons.category),
+          fillColor: Colors.white,
+          border: new OutlineInputBorder(
+            borderRadius: new BorderRadius.circular(12),
+            borderSide: new BorderSide(),
+          ),
+          label: Text(S.of(context).categorie),
+          suffixIcon: _iconHelpCategorie(),
+        ),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return S.of(context).requiredField;
+          } else {
+            return null;
+          }
+        },
+        onSaved: (value) {
+          _teamVo.categorie = value ?? "";
+        },
       ),
     );
   }
@@ -105,13 +135,28 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
       isExtended: true,
       backgroundColor: MyColors.acentColor,
       elevation: 10,
-      onPressed: () {
-        CreateTeamController().onTapSaveButton(context);
+      onPressed: () async {
+        if (_formKey.currentState!.validate()) {
+          _formKey.currentState!.save();
+          await CreateTeamController().tapSaveTeam(context, _teamVo);
+        }
       },
-      label: Text(
-        S.of(context).saveTeam,
-        style: (TextStyle(fontSize: 16)),
-        maxLines: 1,
+      label: _createTeamProvider.saving ? _loading() : _txtButton(),
+    );
+  }
+
+  _txtButton() {
+    return Text(
+      S.of(context).saveTeam,
+      style: (TextStyle(fontSize: 16)),
+      maxLines: 1,
+    );
+  }
+
+  _loading() {
+    return Center(
+      child: CircularProgressIndicator(
+        backgroundColor: MyColors.textIcons,
       ),
     );
   }
