@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 class TeamVo {
   String id = "";
   String name = "";
@@ -48,5 +50,23 @@ class TeamVo {
       "creator": this.creator,
     });
     return map;
+  }
+
+  TeamVo mapToTeamVo(Map<String, dynamic> mapTeam) {
+    TeamVo teamVo = new TeamVo();
+
+    try {
+      teamVo.id = mapTeam['id'];
+      teamVo.name = mapTeam['name'];
+      teamVo.color = mapTeam['color'];
+      teamVo.categorie = mapTeam['categorie'];
+      teamVo.athletes = mapTeam['athletes'];
+      teamVo.admins = mapTeam['admins'];
+      teamVo.creator = mapTeam['creator'];
+      return teamVo;
+    } catch (e) {
+      log("❌ error in TeamVo/mapToTeamVo: $e");
+      return teamVo;
+    }
   }
 }
