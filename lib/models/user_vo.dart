@@ -77,7 +77,6 @@ class UserVO {
       "name": this.name,
       "lastname": this.lastname,
       "email": this.email,
-      "password": this.password,
       "id": this.id,
       "usertype": this.userType,
       "identification": this.identification,

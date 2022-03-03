@@ -41,7 +41,8 @@ class LoginController {
     );
     if (user != null) {
       if (user.emailVerified) {
-        await _saveInfoLogin(userProvider.email, userProvider.password);
+        await _saveInfoLogin(
+            userProvider.email, userProvider.password, user.uid);
         _goToHome(context);
       } else {
         log("❌ sin confirmar email");
@@ -103,7 +104,7 @@ class LoginController {
         .push(MaterialPageRoute(builder: (context) => ForgotPasswordScreen()));
   }
 
-  Future<void> _saveInfoLogin(String email, String password) async {
+  Future<void> _saveInfoLogin(String email, String password, String id) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? emailTemp = pref.getString("email");
 
@@ -111,6 +112,7 @@ class LoginController {
       try {
         pref.setString("email", email);
         pref.setString("password", password);
+        pref.setString("id", id);
       } catch (e) {
         log("❌ Error in LoginController/_saveInfoLogin: " + e.toString());
       }

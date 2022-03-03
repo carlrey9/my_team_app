@@ -16,7 +16,7 @@ class CreateTeamScreen extends StatefulWidget {
 }
 
 class _CreateTeamScreenState extends State<CreateTeamScreen> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   late CreateTeamProvider _createTeamProvider;
   TeamVo _teamVo = new TeamVo();
   @override
@@ -39,6 +39,7 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
   Center _body() {
     return Center(
       child: Form(
+        key: _formKey,
         child: Column(
           children: [
             /* _textTittle(), */
@@ -69,11 +70,7 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
           suffixIcon: _iconHelpName(),
         ),
         validator: (value) {
-          if (value!.isEmpty) {
-            return S.of(context).requiredField;
-          } else {
-            return null;
-          }
+          CreateTeamController().validateName(value, context);
         },
         onSaved: (value) {
           _teamVo.name = value ?? "";
@@ -107,11 +104,7 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
           suffixIcon: _iconHelpCategorie(),
         ),
         validator: (value) {
-          if (value!.isEmpty) {
-            return S.of(context).requiredField;
-          } else {
-            return null;
-          }
+          CreateTeamController().validateCategory(value, context);
         },
         onSaved: (value) {
           _teamVo.categorie = value ?? "";
@@ -136,12 +129,9 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
       backgroundColor: MyColors.acentColor,
       elevation: 10,
       onPressed: () async {
-        if (_formKey.currentState!.validate()) {
-          _formKey.currentState!.save();
-          await CreateTeamController().tapSaveTeam(context, _teamVo);
-        }
+        _onPressedSaveButton();
       },
-      label: _createTeamProvider.saving ? _loading() : _txtButton(),
+      label: _createTeamProvider.isSaving ? _loading() : _txtButton(),
     );
   }
 
@@ -156,8 +146,21 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
   _loading() {
     return Center(
       child: CircularProgressIndicator(
-        backgroundColor: MyColors.textIcons,
+        color: MyColors.textIcons,
       ),
     );
+  }
+
+  void _onPressedSaveButton() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      bool _wasCreated = await CreateTeamController().tapSaveTeam(
+        context,
+        _teamVo,
+      );
+      if (_wasCreated) {
+        Navigator.of(context).pop();
+      }
+    }
   }
 }

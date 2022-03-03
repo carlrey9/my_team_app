@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
 class CreateTeamProvider with ChangeNotifier {
-  bool _saving = false;
+  bool _isSaving = false;
 
-  bool get saving => this._saving;
+  bool get isSaving => this._isSaving;
 
-  set saving(bool value) {
-    this._saving = value;
+  set isSaving(bool value) {
+    this._isSaving = value;
     notifyListeners();
   }
 }
