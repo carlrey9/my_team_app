@@ -32,14 +32,25 @@ class CrudTeam {
   Future<List<TeamVo>> getTeamsByIdCreator(String idUser) async {
     List<TeamVo> teamsList = [];
     try {
+      TeamVo teamVo = new TeamVo();
       await teams
           .where('creator'.trim(), isEqualTo: idUser)
           .get()
           .then((querySnapshot) {
         querySnapshot.docs.forEach((element) {
-          TeamVo teamVo = new TeamVo();
+          var map = element.data();
+
+          teamsList.add(teamVo.mapToTeamVo({}));
         });
       });
+
+      // await admins.get().then((value) => {print("")});
+      await teams.doc(idUser).collection("admins").get().then((querySnapshot) {
+        querySnapshot.docs.forEach((element) {
+          print("elemet:" + element.data().toString());
+        });
+      });
+      ;
 
       return teamsList;
     } catch (e) {

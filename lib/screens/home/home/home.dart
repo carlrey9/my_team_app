@@ -18,6 +18,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    _getMyTeams();
   }
 
   @override
@@ -82,6 +83,10 @@ class _HomeState extends State<Home> {
   void _declaraciones() {
     _width = MediaQuery.of(context).size.width;
     _height = MediaQuery.of(context).size.height;
+  }
+
+  void _getMyTeams() async {
+    await HomeController().getMyTeams();
   }
 }
 

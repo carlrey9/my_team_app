@@ -5,8 +5,8 @@ class TeamVo {
   String name = "";
   String color = "";
   String categorie = "";
-  List athletes = [];
-  List admins = [];
+  Map athletes = {};
+  Map admins = {};
   String creator = "";
 
   String get getId => this.id;
@@ -60,8 +60,8 @@ class TeamVo {
       teamVo.name = mapTeam['name'];
       teamVo.color = mapTeam['color'];
       teamVo.categorie = mapTeam['categorie'];
-      teamVo.athletes = mapTeam['athletes'];
-      teamVo.admins = mapTeam['admins'];
+      /* teamVo.athletes = mapTeam['athletes'];
+      teamVo.admins = mapTeam['admins']; */
       teamVo.creator = mapTeam['creator'];
       return teamVo;
     } catch (e) {
