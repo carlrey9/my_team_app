@@ -15,6 +15,7 @@ class CrudUser {
     try {
       final docRef = users.doc(userVO.id);
       await docRef.set(userVO.toMap());
+
       log("🆗 addUser/CrudUser ");
     } catch (e) {
       log("❌ addUser/CrudUser ");

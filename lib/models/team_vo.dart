@@ -45,8 +45,8 @@ class TeamVo {
       "name": this.name,
       "color": this.color,
       "categorie": this.categorie,
-      "athletes": this.athletes,
-      "admins": this.admins,
+      /* "athletes": this.athletes,
+      "admins": this.admins, */
       "creator": this.creator,
     });
     return map;

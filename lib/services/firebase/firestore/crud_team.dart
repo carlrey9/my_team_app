@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:my_team_app/models/team_vo.dart';
+import 'package:my_team_app/models/user_vo.dart';
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -11,11 +12,15 @@ class CrudTeam {
 
   Future<bool> addTeam(
     TeamVo teamVo,
+    UserVO userVO,
   ) async {
     try {
       final docRef = teams.doc();
       teamVo.id = docRef.id;
       await docRef.set(teamVo.toMap());
+      await docRef.collection("admins").doc(userVO.id).set(userVO.toMapAdmin());
+      await docRef.collection("athletes").doc().set({"name": "", "docRef": ""});
+
       log("🆗 CrudTeam/addTeam ");
       return true;
     } catch (e) {

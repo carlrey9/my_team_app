@@ -90,4 +90,13 @@ class UserVO {
     });
     return map;
   }
+
+  Map<String, dynamic> toMapAdmin() {
+    Map<String, dynamic> map = {};
+    map.addAll({
+      "name": this.name,
+      "id": this.id,
+    });
+    return map;
+  }
 }

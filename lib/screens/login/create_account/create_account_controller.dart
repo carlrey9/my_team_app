@@ -7,6 +7,7 @@ import 'package:my_team_app/services/firebase/firestore/crud_user.dart';
 import 'package:my_team_app/services/providers/create_account_provider.dart';
 import 'package:my_team_app/util/widgets/alert_dialog_opts.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../generated/l10n.dart';
 
@@ -90,6 +91,8 @@ class CreateAccountController {
         await AuthUser().registerUser(userVO.email, userVO.password, context);
     await _registerFirestore(user, userVO);
 
+    await _registerSharedPreferences(userVO);
+
     if (user != null) {
       _showAlertVerifyEmail(context);
     }
@@ -114,5 +117,10 @@ class CreateAccountController {
     userVO.id = user!.uid.toString();
 
     await CrudUser().addUser(userVO);
+  }
+
+  _registerSharedPreferences(UserVO userVO) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString("my_name", userVO.name);
   }
 }

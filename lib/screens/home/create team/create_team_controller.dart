@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:my_team_app/models/team_vo.dart';
+import 'package:my_team_app/models/user_vo.dart';
 import 'package:my_team_app/services/providers/create_team_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -49,7 +50,8 @@ class CreateTeamController {
     try {
       _activeIsSaving(context);
       teamVo = await _fillTeamVo(teamVo);
-      bool resp = await CrudTeam().addTeam(teamVo);
+      UserVO userVO = await _fillFirtsAdmin();
+      bool resp = await CrudTeam().addTeam(teamVo, userVO);
       _inActiveIsSaving(context, resp);
       return true;
     } catch (e) {
@@ -82,8 +84,8 @@ class CreateTeamController {
 
   Future<TeamVo> _fillTeamVo(TeamVo teamVo) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    print(teamVo);
     teamVo.creator = pref.getString('id') ?? "";
+
     return teamVo;
   }
 
@@ -100,5 +102,15 @@ class CreateTeamController {
     final _proCreateTeam =
         Provider.of<CreateTeamProvider>(context, listen: false);
     _proCreateTeam.isSaving = false;
+  }
+
+  Future<UserVO> _fillFirtsAdmin() async {
+    //fillin admin
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    UserVO userVO = new UserVO();
+
+    userVO.name = pref.getString("my_name") ?? "";
+    userVO.id = pref.getString("id") ?? "";
+    return userVO;
   }
 }
