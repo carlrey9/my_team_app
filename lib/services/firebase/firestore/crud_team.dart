@@ -18,8 +18,6 @@ class CrudTeam {
       final docRef = teams.doc();
       teamVo.id = docRef.id;
       await docRef.set(teamVo.toMap());
-      await docRef.collection("admins").doc(userVO.id).set(userVO.toMapAdmin());
-      await docRef.collection("athletes").doc().set({"name": "", "docRef": ""});
 
       log("🆗 CrudTeam/addTeam ");
       return true;
@@ -29,7 +27,9 @@ class CrudTeam {
     }
   }
 
-  Future<List<TeamVo>> getTeamsByIdCreator(String idUser) async {
+  Future<List<TeamVo>> getTeamsByIdCreator(
+    String idUser,
+  ) async {
     List<TeamVo> teamsList = [];
     try {
       TeamVo teamVo = new TeamVo();
@@ -38,20 +38,10 @@ class CrudTeam {
           .get()
           .then((querySnapshot) {
         querySnapshot.docs.forEach((element) {
-          var map = element.data();
-
-          teamsList.add(teamVo.mapToTeamVo({}));
+          Map<String, dynamic>? map = element.data() as Map<String, dynamic>;
+          teamsList.add(teamVo.mapToTeamVo(map));
         });
       });
-
-      // await admins.get().then((value) => {print("")});
-      await teams.doc(idUser).collection("admins").get().then((querySnapshot) {
-        querySnapshot.docs.forEach((element) {
-          print("elemet:" + element.data().toString());
-        });
-      });
-      ;
-
       return teamsList;
     } catch (e) {
       log("❌ Error in CrudTeam/getTeamsByIdCreator: $e");

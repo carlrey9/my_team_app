@@ -108,7 +108,6 @@ class CreateTeamController {
     //fillin admin
     SharedPreferences pref = await SharedPreferences.getInstance();
     UserVO userVO = new UserVO();
-
     userVO.name = pref.getString("my_name") ?? "";
     userVO.id = pref.getString("id") ?? "";
     return userVO;

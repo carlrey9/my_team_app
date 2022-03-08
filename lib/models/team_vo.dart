@@ -1,12 +1,14 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
+
 class TeamVo {
   String id = "";
   String name = "";
   String color = "";
   String categorie = "";
-  Map athletes = {};
-  Map admins = {};
+  List athletes = [];
+  List admins = [];
   String creator = "";
 
   String get getId => this.id;
@@ -45,8 +47,8 @@ class TeamVo {
       "name": this.name,
       "color": this.color,
       "categorie": this.categorie,
-      /* "athletes": this.athletes,
-      "admins": this.admins, */
+      "athletes": this.athletes,
+      "admins": this.admins,
       "creator": this.creator,
     });
     return map;
@@ -56,13 +58,13 @@ class TeamVo {
     TeamVo teamVo = new TeamVo();
 
     try {
-      teamVo.id = mapTeam['id'];
-      teamVo.name = mapTeam['name'];
-      teamVo.color = mapTeam['color'];
-      teamVo.categorie = mapTeam['categorie'];
-      /* teamVo.athletes = mapTeam['athletes'];
-      teamVo.admins = mapTeam['admins']; */
-      teamVo.creator = mapTeam['creator'];
+      teamVo.id = mapTeam['id'] ?? "";
+      teamVo.name = mapTeam['name'] ?? "";
+      teamVo.color = mapTeam['color'] ?? "";
+      teamVo.categorie = mapTeam['categorie'] ?? "";
+      teamVo.athletes = mapTeam['athletes'] ?? [];
+      teamVo.admins = mapTeam['admins'] ?? [];
+      teamVo.creator = mapTeam['creator'] ?? "";
       return teamVo;
     } catch (e) {
       log("❌ error in TeamVo/mapToTeamVo: $e");
