@@ -119,17 +119,27 @@ class _HomeState extends State<Home> {
   }
 
   Widget _individualTeam(TeamVo teamVO) {
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      child: Column(
-        children: [
-          _encabezadoCard(teamVO.name),
-          _bodyCard(),
-        ],
-      ),
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+    return InkWell(
+      onTap: () {
+        _goToContentTeam(teamVO, context);
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: Card(
+          clipBehavior: Clip.antiAlias,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                _encabezadoCard(teamVO.name),
+                _bodyCard(),
+              ],
+            ),
+          ),
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
       ),
     );
   }
@@ -156,6 +166,10 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
+  }
+
+  void _goToContentTeam(TeamVo teamVO, BuildContext context) {
+    HomeController().goToContentTeam(context, teamVO);
   }
 }
 
